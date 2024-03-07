@@ -1,4 +1,3 @@
-import { useFetcher } from "@remix-run/react";
 import {
   Button,
   DataTableHeader,
@@ -6,15 +5,14 @@ import {
   type RT,
 } from "@vert-capital/design-system-ui";
 import { dateDisplay } from "~/common/format";
-import { UserModel } from "~/models/user.model";
+import { CalendarModel } from "~/models/calendar.model";
 
 type Props = {
-  handleEdit: (data: UserModel) => void;
+  handleEdit: (data: CalendarModel) => void;
 };
-export function getColumns({ handleEdit }: Props): RT.ColumnDef<UserModel>[] {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const fetcher = useFetcher();
-
+export function getColumns({
+  handleEdit,
+}: Props): RT.ColumnDef<CalendarModel>[] {
   return [
     {
       accessorKey: "id",
@@ -24,50 +22,88 @@ export function getColumns({ handleEdit }: Props): RT.ColumnDef<UserModel>[] {
       cell: ({ row }) => {
         const id: number = row.getValue("id");
         return (
-          <div title={id.toString()} className="w-[200px] truncate">
+          <div title={id.toString()} className="w-[50px] ">
             {id}
           </div>
         );
       },
     },
     {
-      accessorKey: "cloud_provider",
+      accessorKey: "name",
       header: ({ column }) => (
-        <DataTableHeader title="Providor Cloud" column={column} isSort />
+        <DataTableHeader title="Name" column={column} isSort />
       ),
       cell: ({ row }) => {
-        const cloud_provider: string = row.getValue("cloud_provider");
+        const name: string = row.getValue("name");
         return (
-          <div className="w-[130px] truncate" title={cloud_provider}>
-            {cloud_provider}
+          <div className="w-[130px] " title={name}>
+            {name}
           </div>
         );
       },
     },
     {
-      accessorKey: "nickname",
+      accessorKey: "type_action",
       header: ({ column }) => (
-        <DataTableHeader title="Nickname" column={column} isSort />
+        <DataTableHeader title="Tipo de Ação" column={column} isSort />
       ),
       cell: ({ row }) => {
-        const nickname: string = row.getValue("nickname");
+        const type_action: string = row.getValue("type_action");
+        const resultado: string = type_action == "on" ? "Ligar" : "Desligar";
         return (
-          <div className="w-[130px] truncate" title={nickname}>
-            {nickname}
+          <div className="w-[130px] " title={resultado}>
+            {resultado}
           </div>
         );
       },
     },
     {
-      accessorKey: "access_key_id",
+      accessorKey: "sunday",
       header: ({ column }) => (
-        <DataTableHeader title="Access Key ID" column={column} isSort />
+        <DataTableHeader title="Dias" column={column} isSort />
       ),
       cell: ({ row }) => {
-        const access_key_id: string = row.getValue("access_key_id");
+        console.log(row);
         return (
-          <div className="w-[130px] truncate" title={access_key_id}>
-            {access_key_id}
+          <div className="w-[130px] ">
+            {row.original.sunday == true && <p>Domingo</p>}
+            {row.original.monday == true && <p>Segunda</p>}
+            {row.original.tuesday == true && <p>Terça</p>}
+            {row.original.wednesday == true && <p>Quarta</p>}
+            {row.original.thursday == true && <p>Quinta</p>}
+            {row.original.friday == true && <p>Sexta</p>}
+            {row.original.saturday == true && <p>Sábado</p>}
+          </div>
+        );
+      },
+    },
+    {
+      accessorKey: "valid_holiday",
+      header: ({ column }) => (
+        <DataTableHeader title="Feriado?" column={column} isSort />
+      ),
+      cell: ({ row }) => {
+        const valid_holiday: string =
+          row.getValue("valid_holiday") == true ? "Sim" : "Não";
+
+        return (
+          <div className="w-[130px] " title={valid_holiday}>
+            {valid_holiday}
+          </div>
+        );
+      },
+    },
+    {
+      accessorKey: "valid_weekend",
+      header: ({ column }) => (
+        <DataTableHeader title="Final Semana?" column={column} isSort />
+      ),
+      cell: ({ row }) => {
+        const valid_weekend: string =
+          row.getValue("valid_weekend") == true ? "Sim" : "Não";
+        return (
+          <div className="w-[130px] " title={valid_weekend}>
+            {valid_weekend}
           </div>
         );
       },
@@ -80,7 +116,7 @@ export function getColumns({ handleEdit }: Props): RT.ColumnDef<UserModel>[] {
       cell: ({ row }) => {
         const active: string = row.getValue("active") ? "Sim" : "Não";
         return (
-          <div className="w-[130px] truncate" title={active}>
+          <div className="w-[70px] " title={active}>
             {active}
           </div>
         );
@@ -99,7 +135,7 @@ export function getColumns({ handleEdit }: Props): RT.ColumnDef<UserModel>[] {
               year: "numeric",
             })
           : "";
-        return <div className="w-[100px] truncate">{date}</div>;
+        return <div className="w-[100px] ">{date}</div>;
       },
     },
     {
@@ -115,7 +151,7 @@ export function getColumns({ handleEdit }: Props): RT.ColumnDef<UserModel>[] {
               year: "numeric",
             })
           : "";
-        return <div className="w-[100px] truncate">{date}</div>;
+        return <div className="w-[100px] ">{date}</div>;
       },
     },
     {
@@ -134,15 +170,9 @@ export function getColumns({ handleEdit }: Props): RT.ColumnDef<UserModel>[] {
             >
               <Icons.Pencil className="h-3 w-3" />
             </Button>
-            <fetcher.Form method="post" action="/api/cloudaccount/sync">
-              <input type="hidden" name="id" value={data.id} />
-              <Button type="submit" variant="ghost" size={"icon"}>
-                <Icons.RefreshCcwDot className="h-3 w-3" />
-              </Button>
-            </fetcher.Form>
           </div>
         );
       },
     },
-  ] as RT.ColumnDef<UserModel>[];
+  ] as RT.ColumnDef<CalendarModel>[];
 }

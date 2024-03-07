@@ -95,18 +95,25 @@ export default function Index() {
               ...(user?.is_admin
                 ? [
                     {
-                      title: "Instances",
-                      variant: "default" as const,
-                      icon: Icons.ComputerIcon,
-                      active: pathname === routes.instances,
-                      onClick: () => navigate(routes.instances),
-                    },
-                    {
                       title: "Cloud Accounts",
                       variant: "default" as const,
                       icon: Icons.CloudLightningIcon,
                       active: pathname === routes.cloud_accounts,
                       onClick: () => navigate(routes.cloud_accounts),
+                    },
+                    {
+                      title: "Calendars",
+                      variant: "default" as const,
+                      icon: Icons.CalendarDaysIcon,
+                      active: pathname === routes.calendar,
+                      onClick: () => navigate(routes.calendar),
+                    },
+                    {
+                      title: "Instances",
+                      variant: "default" as const,
+                      icon: Icons.ComputerIcon,
+                      active: pathname === routes.instances,
+                      onClick: () => navigate(routes.instances),
                     },
                     {
                       title: "Users",

@@ -143,7 +143,11 @@ export function AddOrEdit({ data, close }: Props) {
                   <FormItem>
                     <FormLabel>Access Secret Key</FormLabel>
                     <FormControl>
-                      <Input {...field} id="secret_access_key" />
+                      <Input
+                        {...field}
+                        id="secret_access_key"
+                        type="password"
+                      />
                     </FormControl>
                   </FormItem>
                 )}

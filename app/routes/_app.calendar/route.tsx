@@ -1,8 +1,10 @@
 import {
+  Button,
   Card,
   CardContent,
   CardHeader,
   DataTable,
+  Icons,
 } from "@vert-capital/design-system-ui";
 
 import {
@@ -14,14 +16,14 @@ import { useLoaderData, useNavigate, useSearchParams } from "@remix-run/react";
 import { useState } from "react";
 import clearEmptyParams from "~/components/clear-empty-params";
 import Unpermission from "~/components/unpermission";
-import { InstancesModel } from "~/models/instances.model";
+import { CalendarModel } from "~/models/calendar.model";
 import {
   PaginationStateModel,
   SortingStateModel,
   TableModel,
 } from "~/models/table.model";
 import authenticated from "~/policies/authenticated";
-import { InstancesService } from "~/services/instances.service";
+import { CalendarService } from "~/services/calendar.service";
 import { AddOrEdit } from "./addOrEdit";
 import { getColumns } from "./columns";
 import { Filter } from "./filters";
@@ -30,7 +32,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   // Limpa url de parâmetros vazios
   await clearEmptyParams(new URL(request.url));
 
-  const service = new InstancesService();
+  const service = new CalendarService();
   const data = await service.list(request);
 
   const { user } = await authenticated(request);
@@ -42,7 +44,7 @@ export default function AppIndex() {
   const { data, user } = useLoaderData<typeof loader>();
   const [searchParams] = useSearchParams();
 
-  const registerData = data as TableModel<InstancesModel>;
+  const registerData = data as TableModel<CalendarModel>;
 
   const navigate = useNavigate();
 
@@ -51,7 +53,7 @@ export default function AppIndex() {
   const page = searchParams.get("page") || "0";
   const pageSize = searchParams.get("page_size") || "10";
 
-  const [stateData, setState] = useState<InstancesModel | undefined>();
+  const [stateData, setState] = useState<CalendarModel | undefined>();
 
   const onPaginationChange = (pagination: PaginationStateModel) => {
     searchParams.set("page", String(pagination.page));
@@ -76,7 +78,7 @@ export default function AppIndex() {
   return (
     <>
       <div className="flex flex-col space-y-4">
-        <h1 className="text-2xl font-semibold">Instances</h1>
+        <h1 className="text-2xl font-semibold">Calendar</h1>
         <div className="w-full flex justify-between items-center">
           <div></div>
           <div>
@@ -86,15 +88,24 @@ export default function AppIndex() {
         <Card className="w-full">
           <CardHeader className="w-full flex flex-row justify-between items-center space-x-4 space-y-0">
             <div className="flex-1"></div>
-            <div className="flex justify-end items-center space-x-6"></div>
+            <div className="flex justify-end items-center space-x-6">
+              <Button
+                type="button"
+                variant={"default"}
+                onClick={() => setState(new CalendarModel({}))}
+              >
+                <span className="mr-2">Adicionar</span>
+                <Icons.Plus className="h-4 w-4" />
+              </Button>
+            </div>
           </CardHeader>
           <CardContent>
             <DataTable
-              className="table-auto"
+              className=""
               initialHeight="19.2rem"
               columns={getColumns({
                 handleEdit: (data) => {
-                  setState(new InstancesModel(data));
+                  setState(new CalendarModel(data));
                 },
               })}
               data={registerData?.registers}
@@ -127,7 +138,7 @@ export async function action({ request }: ActionFunctionArgs) {
   const body = await request.json();
 
   try {
-    const service = new InstancesService();
+    const service = new CalendarService();
     await service.createOrEdit(
       {
         body,

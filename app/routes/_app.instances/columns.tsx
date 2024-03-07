@@ -20,7 +20,7 @@ export function getColumns({ handleEdit }: Props): RT.ColumnDef<UserModel>[] {
       cell: ({ row }) => {
         const id: number = row.getValue("id");
         return (
-          <div title={id.toString()} className="w-[200px] truncate">
+          <div title={id.toString()} className="w-[50px] ">
             {id}
           </div>
         );
@@ -34,7 +34,7 @@ export function getColumns({ handleEdit }: Props): RT.ColumnDef<UserModel>[] {
       cell: ({ row }) => {
         const instance_id: string = row.getValue("instance_id");
         return (
-          <div className="w-[130px] truncate" title={instance_id}>
+          <div className="w-[170px]" title={instance_id}>
             {instance_id}
           </div>
         );
@@ -48,7 +48,7 @@ export function getColumns({ handleEdit }: Props): RT.ColumnDef<UserModel>[] {
       cell: ({ row }) => {
         const instance_name: string = row.getValue("instance_name");
         return (
-          <div className="w-[130px] truncate" title={instance_name}>
+          <div className="w-[250px]" title={instance_name}>
             {instance_name}
           </div>
         );
@@ -62,7 +62,7 @@ export function getColumns({ handleEdit }: Props): RT.ColumnDef<UserModel>[] {
       cell: ({ row }) => {
         const instance_type: string = row.getValue("instance_type");
         return (
-          <div className="w-[130px] truncate" title={instance_type}>
+          <div className="w-[100px] " title={instance_type}>
             {instance_type}
           </div>
         );
@@ -76,7 +76,7 @@ export function getColumns({ handleEdit }: Props): RT.ColumnDef<UserModel>[] {
       cell: ({ row }) => {
         const instance_state: string = row.getValue("instance_state");
         return (
-          <div className="w-[130px] truncate" title={instance_state}>
+          <div className="w-[100px] " title={instance_state}>
             {instance_state}
           </div>
         );
@@ -90,7 +90,7 @@ export function getColumns({ handleEdit }: Props): RT.ColumnDef<UserModel>[] {
       cell: ({ row }) => {
         const instance_region: string = row.getValue("instance_region");
         return (
-          <div className="w-[130px] truncate" title={instance_region}>
+          <div className="w-[100px]" title={instance_region}>
             {instance_region}
           </div>
         );
@@ -104,7 +104,7 @@ export function getColumns({ handleEdit }: Props): RT.ColumnDef<UserModel>[] {
       cell: ({ row }) => {
         const active: string = row.getValue("active") ? "Sim" : "Não";
         return (
-          <div className="w-[130px] truncate" title={active}>
+          <div className="w-[70px] " title={active}>
             {active}
           </div>
         );
@@ -123,7 +123,7 @@ export function getColumns({ handleEdit }: Props): RT.ColumnDef<UserModel>[] {
               year: "numeric",
             })
           : "";
-        return <div className="w-[100px] truncate">{date}</div>;
+        return <div className="w-[100px] ">{date}</div>;
       },
     },
     {
@@ -139,7 +139,7 @@ export function getColumns({ handleEdit }: Props): RT.ColumnDef<UserModel>[] {
               year: "numeric",
             })
           : "";
-        return <div className="w-[100px] truncate">{date}</div>;
+        return <div className="w-[100px] ">{date}</div>;
       },
     },
     {

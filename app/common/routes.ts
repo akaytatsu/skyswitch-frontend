@@ -4,4 +4,5 @@ export default {
   users: '/users',
   instances: '/instances',
   cloud_accounts: '/cloudaccount',
+  calendar: '/calendar',
 };

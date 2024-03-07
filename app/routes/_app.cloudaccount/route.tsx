@@ -43,8 +43,6 @@ export async function loader({ request }: LoaderFunctionArgs) {
 export default function AppIndex() {
   const { data, user } = useLoaderData<typeof loader>();
   const [searchParams] = useSearchParams();
-  const request = useNavigate();
-
   const registerData = data as TableModel<CloudaccountModel>;
 
   const navigate = useNavigate();
