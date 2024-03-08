@@ -1,7 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useFetcher, useRevalidator } from "@remix-run/react";
-import { useEffect } from "react";
-import { useForm } from "react-hook-form";
 import {
   Button,
   CheckBoxBasic,
@@ -20,6 +18,8 @@ import {
   SheetTitle,
   useToast,
 } from "@vert-capital/design-system-ui";
+import { useEffect } from "react";
+import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { handleError } from "~/common/handle-error";
 import { UsersModel } from "~/models/users.model";
@@ -52,14 +52,14 @@ export function AddOrEdit({ data, close }: Props) {
   }, [data, form, isEdit]);
 
   useEffect(() => {
-    if (!fetcher.data?.error) {
+    if (fetcher.data?.success) {
       revalidate();
       close();
       toast({
         title: "Permissões salvas com sucesso",
         _type: "success",
       });
-    } else {
+    } else if (fetcher.data?.error) {
       toast({
         title: "Erro ao salvar",
         description: handleError(fetcher.data?.error).message,

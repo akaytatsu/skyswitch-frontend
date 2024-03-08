@@ -9,7 +9,6 @@ import {
   FormItem,
   FormLabel,
   Icons,
-  Input,
   SelectAdvanced,
   Sheet,
   SheetContent,
@@ -55,14 +54,14 @@ export function AddOrEdit({ data, calendarData, close }: Props) {
   }, [data, form, isEdit]);
 
   useEffect(() => {
-    if (!fetcher.data?.error) {
+    if (fetcher.data?.success) {
       revalidate();
       close();
       toast({
         title: "Permissões salvas com sucesso",
         _type: "success",
       });
-    } else {
+    } else if (fetcher.data?.error) {
       toast({
         title: "Erro ao salvar",
         description: handleError(fetcher.data?.error).message,
@@ -101,18 +100,6 @@ export function AddOrEdit({ data, calendarData, close }: Props) {
             onSubmit={form.handleSubmit(onSubmit, onError)}
           >
             <div className="grid gap-4 py-2">
-              <FormField
-                control={form.control}
-                name="name"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Nome</FormLabel>
-                    <FormControl>
-                      <Input {...field} id="name" />
-                    </FormControl>
-                  </FormItem>
-                )}
-              />
               <FormField
                 control={form.control}
                 name="active"

@@ -16,12 +16,12 @@ import { useLoaderData, useNavigate, useSearchParams } from "@remix-run/react";
 import { useState } from "react";
 import clearEmptyParams from "~/components/clear-empty-params";
 import Unpermission from "~/components/unpermission";
-import { UsersModel } from "~/models/users.model";
 import {
   PaginationStateModel,
   SortingStateModel,
   TableModel,
 } from "~/models/table.model";
+import { UsersModel } from "~/models/users.model";
 import authenticated from "~/policies/authenticated";
 import { UsersService } from "~/services/users.service";
 import { AddOrEdit } from "./addOrEdit";
@@ -148,9 +148,10 @@ export async function action({ request }: ActionFunctionArgs) {
 
     return json({
       error: "",
+      success: true,
       lastSubmission: body,
     });
   } catch (error) {
-    return json({ error, lastSubmission: body });
+    return json({ error, success: false, lastSubmission: body });
   }
 }

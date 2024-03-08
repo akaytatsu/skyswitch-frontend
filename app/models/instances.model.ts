@@ -75,22 +75,30 @@ export class InstancesModel {
 
 export class InstancesFilterModel {
   q?: string;
+  only_status_monitor?: boolean;
+  only_active?: boolean;
   created_at?: { from: Date; to: Date } | undefined;
 
   constructor(data?: any) {
     this.q = data?.q || "";
+    this.only_status_monitor = data?.only_status_monitor || true;
+    this.only_active = data?.only_active || true;
     this.created_at = data?.created_at || {};
   }
 
   toJson() {
     return {
       q: this.q,
+      only_status_monitor: this.only_status_monitor,
+      only_active: this.only_active,
       created_at: this.created_at,
     };
   }
 
   public static schema = z.object({
     q: z.string().optional(),
+    only_status_monitor: z.boolean().optional(),
+    only_active: z.boolean().optional(),
     created_at: z
       .object({
         from: z.date().optional(),

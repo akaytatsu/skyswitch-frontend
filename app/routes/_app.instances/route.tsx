@@ -58,6 +58,8 @@ export default function AppIndex() {
   const sortOrder = searchParams.get("sort_order") || "";
   const page = searchParams.get("page") || "0";
   const pageSize = searchParams.get("page_size") || "10";
+  // const onlyActive = searchParams.get("only_active") || "true";
+  // const onlyStatusMonitor = searchParams.get("only_status_monitor") || "true";
 
   const [stateData, setState] = useState<InstancesModel | undefined>();
   const [fullColumns, setFullColumns] = useState(false);
@@ -158,9 +160,10 @@ export async function action({ request }: ActionFunctionArgs) {
 
     return json({
       error: "",
+      success: true,
       lastSubmission: body,
     });
   } catch (error) {
-    return json({ error, lastSubmission: body });
+    return json({ error, success: false, lastSubmission: body });
   }
 }

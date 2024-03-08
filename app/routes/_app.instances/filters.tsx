@@ -1,9 +1,8 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate } from "@remix-run/react";
-import { useEffect } from "react";
-import { useForm } from "react-hook-form";
 import {
   Button,
+  CheckBoxBasic,
   DateRangePicker,
   Form,
   FormControl,
@@ -22,6 +21,8 @@ import {
   SheetTrigger,
   dateDisplay,
 } from "@vert-capital/design-system-ui";
+import { useEffect } from "react";
+import { useForm } from "react-hook-form";
 import { toCamelCase } from "~/common/formatString";
 import { InstancesFilterModel } from "~/models/instances.model";
 
@@ -186,6 +187,48 @@ export function Filter() {
                       <Input placeholder="Pesquisa" type="text" {...field} />
                     </FormControl>
                     <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="only_status_monitor"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <CheckBoxBasic
+                        {...field}
+                        id="only_status_monitor"
+                        label="Somente status monitorado"
+                        checked={field.value}
+                        onCheckedChange={(e: boolean) =>
+                          !e
+                            ? form.setValue("only_status_monitor", false)
+                            : form.setValue("only_status_monitor", true)
+                        }
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="only_active"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <CheckBoxBasic
+                        {...field}
+                        id="only_active"
+                        label="Somente ativos"
+                        checked={field.value}
+                        onCheckedChange={(e: boolean) =>
+                          !e
+                            ? form.setValue("only_active", false)
+                            : form.setValue("only_active", true)
+                        }
+                      />
+                    </FormControl>
                   </FormItem>
                 )}
               />

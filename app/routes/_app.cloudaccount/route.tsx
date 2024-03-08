@@ -147,9 +147,10 @@ export async function action({ request }: ActionFunctionArgs) {
 
     return json({
       error: "",
+      success: true,
       lastSubmission: body,
     });
   } catch (error) {
-    return json({ error, lastSubmission: body });
+    return json({ error, success: false, lastSubmission: body });
   }
 }
