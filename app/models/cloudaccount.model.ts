@@ -5,6 +5,7 @@ export class CloudaccountModel {
   id: number;
   cloud_provider: string;
   nickname: string;
+  region: string;
   access_key_id: string;
   secret_access_key: string;
   active: boolean;
@@ -15,6 +16,7 @@ export class CloudaccountModel {
     this.id = data.id;
     this.cloud_provider = data.cloud_provider;
     this.nickname = data.nickname;
+    this.region = data.region;
     this.access_key_id = data.access_key_id;
     this.secret_access_key = data.secret_access_key;
     this.active = data.active;
@@ -27,6 +29,7 @@ export class CloudaccountModel {
       id: this.id,
       cloud_provider: this.cloud_provider,
       nickname: this.nickname,
+      region: this.region,
       access_key_id: this.access_key_id,
       secret_access_key: this.secret_access_key,
       active: this.active,
@@ -43,6 +46,7 @@ export class CloudaccountModel {
     id: z.number().optional(),
     cloud_provider: z.string().min(1).max(30),
     nickname: z.string().min(1).max(70),
+    region: z.string().min(1).max(30).optional(),
     access_key_id: z.string().optional(),
     secret_access_key: z.string().optional(),
     active: z.boolean().optional(),

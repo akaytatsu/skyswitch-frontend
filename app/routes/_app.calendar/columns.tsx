@@ -58,6 +58,20 @@ export function getColumns({
       },
     },
     {
+      accessorKey: "execute_time",
+      header: ({ column }) => (
+        <DataTableHeader title="Hora Execução" column={column} isSort />
+      ),
+      cell: ({ row }) => {
+        const execute_time: string = row.getValue("execute_time");
+        return (
+          <div className="w-[90px] " title={execute_time}>
+            {execute_time}
+          </div>
+        );
+      },
+    },
+    {
       accessorKey: "sunday",
       header: ({ column }) => (
         <DataTableHeader title="Dias" column={column} isSort />

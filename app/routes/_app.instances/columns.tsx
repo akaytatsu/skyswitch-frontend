@@ -4,7 +4,6 @@ import {
   Icons,
   type RT,
 } from "@vert-capital/design-system-ui";
-import { dateDisplay } from "~/common/format";
 import { InstancesModel } from "~/models/instances.model";
 
 type Props = {
@@ -24,20 +23,6 @@ export function getColumns({
         return (
           <div title={id.toString()} className="w-[50px] ">
             {id}
-          </div>
-        );
-      },
-    },
-    {
-      accessorKey: "instance_id",
-      header: ({ column }) => (
-        <DataTableHeader title="ID Instancia" column={column} isSort />
-      ),
-      cell: ({ row }) => {
-        const instance_id: string = row.getValue("instance_id");
-        return (
-          <div className="w-[170px]" title={instance_id}>
-            {instance_id}
           </div>
         );
       },
@@ -71,20 +56,6 @@ export function getColumns({
       },
     },
     {
-      accessorKey: "instance_type",
-      header: ({ column }) => (
-        <DataTableHeader title="Tipo Instancia" column={column} isSort />
-      ),
-      cell: ({ row }) => {
-        const instance_type: string = row.getValue("instance_type");
-        return (
-          <div className="w-[100px] " title={instance_type}>
-            {instance_type}
-          </div>
-        );
-      },
-    },
-    {
       accessorKey: "instance_state",
       header: ({ column }) => (
         <DataTableHeader title="Status Instancia" column={column} isSort />
@@ -94,20 +65,6 @@ export function getColumns({
         return (
           <div className="w-[100px] " title={instance_state}>
             {instance_state}
-          </div>
-        );
-      },
-    },
-    {
-      accessorKey: "instance_region",
-      header: ({ column }) => (
-        <DataTableHeader title="Região Instancia" column={column} isSort />
-      ),
-      cell: ({ row }) => {
-        const instance_region: string = row.getValue("instance_region");
-        return (
-          <div className="w-[100px]" title={instance_region}>
-            {instance_region}
           </div>
         );
       },
@@ -127,35 +84,23 @@ export function getColumns({
       },
     },
     {
-      accessorKey: "created_at",
+      accessorKey: "calendars",
       header: ({ column }) => (
-        <DataTableHeader title="Criado em" column={column} isSort />
+        <DataTableHeader title="Calendários" column={column} isSort />
       ),
       cell: ({ row }) => {
-        const date = row.getValue("created_at")
-          ? dateDisplay(row.getValue("created_at"), {
-              day: "2-digit",
-              month: "2-digit",
-              year: "numeric",
-            })
-          : "";
-        return <div className="w-[100px] ">{date}</div>;
-      },
-    },
-    {
-      accessorKey: "updated_at",
-      header: ({ column }) => (
-        <DataTableHeader title="Atualizado em" column={column} isSort />
-      ),
-      cell: ({ row }) => {
-        const date = row.getValue("updated_at")
-          ? dateDisplay(row.getValue("updated_at"), {
-              day: "2-digit",
-              month: "2-digit",
-              year: "numeric",
-            })
-          : "";
-        return <div className="w-[100px] ">{date}</div>;
+        return (
+          <div className="w-[130px] ">
+            {row.original.calendars.map((calendar) => (
+              <p
+                className="border-b border-dotted border-gray-600 py-2"
+                key={calendar.id}
+              >
+                {calendar.name}
+              </p>
+            ))}
+          </div>
+        );
       },
     },
     {

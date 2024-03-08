@@ -121,7 +121,19 @@ export function AddOrEdit({ data, close }: Props) {
                     </FormControl>
                   </FormItem>
                 )}
-              />{" "}
+              />
+              <FormField
+                control={form.control}
+                name="region"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Região</FormLabel>
+                    <FormControl>
+                      <Input {...field} id="region" />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
               <FormField
                 control={form.control}
                 name="access_key_id"

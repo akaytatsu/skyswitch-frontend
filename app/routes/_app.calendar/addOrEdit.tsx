@@ -23,6 +23,7 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { handleError } from "~/common/handle-error";
+import TimePicker from "~/components/timepicker";
 import { CalendarModel } from "~/models/calendar.model";
 import { action } from "./route";
 
@@ -130,6 +131,23 @@ export function AddOrEdit({ data, close }: Props) {
                             value: "off",
                           },
                         ]}
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="execute_time"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Tipo de Ação</FormLabel>
+                    <FormControl>
+                      <TimePicker
+                        value={field.value}
+                        onChange={(value: string) =>
+                          form.setValue("execute_time", value)
+                        }
                       />
                     </FormControl>
                   </FormItem>

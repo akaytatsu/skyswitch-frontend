@@ -20,7 +20,6 @@ import { useState } from "react";
 import { getSelectorsByUserAgent } from "react-device-detect";
 import routes from "~/common/routes";
 import { userPrefs } from "~/cookies.server";
-import { UserModel } from "~/models/user.model";
 import authenticated from "~/policies/authenticated";
 
 export const meta: MetaFunction<typeof loader> = () => [
@@ -132,7 +131,7 @@ export default function Index() {
         <NavbarApp
           isMobile={isMobile}
           setCollapsed={setCollapsed}
-          user={new UserModel(user).toJson()}
+          // user={new UserModel(user).toJson()}
           logout={() => {
             fetcher.submit("", {
               method: "POST",

@@ -26,7 +26,9 @@ import { CalendarService } from "~/services/calendar.service";
 import { InstancesService } from "~/services/instances.service";
 import { AddOrEdit } from "./addOrEdit";
 import { getColumns } from "./columns";
+import { TableType } from "./columnType";
 import { Filter } from "./filters";
+import { getFullColumns } from "./fullcolumns";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   // Limpa url de parâmetros vazios
@@ -58,6 +60,7 @@ export default function AppIndex() {
   const pageSize = searchParams.get("page_size") || "10";
 
   const [stateData, setState] = useState<InstancesModel | undefined>();
+  const [fullColumns, setFullColumns] = useState(false);
 
   const onPaginationChange = (pagination: PaginationStateModel) => {
     searchParams.set("page", String(pagination.page));
@@ -85,7 +88,12 @@ export default function AppIndex() {
         <h1 className="text-2xl font-semibold">Instances</h1>
         <div className="w-full flex justify-between items-center">
           <div></div>
-          <div>
+          <div className="grid grid-cols-2 gap-4">
+            <TableType
+              handleClick={() => {
+                setFullColumns(!fullColumns);
+              }}
+            />
             <Filter />
           </div>
         </div>
@@ -98,11 +106,19 @@ export default function AppIndex() {
             <DataTable
               className="table-auto"
               initialHeight="19.2rem"
-              columns={getColumns({
-                handleEdit: (data) => {
-                  setState(new InstancesModel(data));
-                },
-              })}
+              columns={
+                fullColumns == false
+                  ? getColumns({
+                      handleEdit: (data) => {
+                        setState(new InstancesModel(data));
+                      },
+                    })
+                  : getFullColumns({
+                      handleEdit: (data) => {
+                        setState(new InstancesModel(data));
+                      },
+                    })
+              }
               data={registerData?.registers}
               options={{
                 loading: false,
