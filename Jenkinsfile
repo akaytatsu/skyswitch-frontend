@@ -15,20 +15,6 @@ def cancelPreviousBuilds() {
   }
 }
 
-def bitbucketNotify(status, branch_name, git_commit) {
-    withCredentials([usernamePassword(credentialsId: 'thiagofreitas', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-        sh "curl --location --request POST 'https://api.bitbucket.org/2.0/repositories/sistema_vert/vert-fileexplorer-front/commit/"+git_commit+"/statuses/build'" \
-            + " --user $USERNAME:$PASSWORD " \
-            + " --header 'Content-Type: application/json' " \
-            + " --data '{" \
-            + "    \"state\": \""+status+"\"," \
-            + "    \"key\": \""+git_commit+"\"," \
-            + "    \"name\": \"Jenkins: "+branch_name+"\"," \
-            + "    \"url\": \"https://ci.vert-capital.com/blue/organizations/jenkins//activity\"" \
-            + "}'"
-    }
-}
-
 pipeline {
 
     environment {
@@ -48,9 +34,6 @@ pipeline {
         stage('Init') {
             steps {
                 cancelPreviousBuilds()
-                script {
-                    // bitbucketNotify('INPROGRESS', env.BRANCH_NAME, env.GIT_COMMIT)
-                }
             }
         }
 
@@ -59,30 +42,6 @@ pipeline {
                 checkout scm
             }
         }
-
-        // stage('build Container Register Homolog') {
-        //     when {
-        //         expression {
-        //             return env.GIT_BRANCH == 'homolog'
-        //         }
-        //     }
-
-        //     steps {
-        //         script {
-        //             docker.withRegistry("https://$registry", registryCredential) {
-        //                 dockerImageName = "vert-fileexplorer-front-hml"
-        //                 dockerImage = docker.build(dockerImageName, ".")
-        //                 dockerImage.push("$BUILD_NUMBER")
-        //                 dockerImage.push("latest")
-        //             }
-        //         }
-
-        //         script{
-        //             sh "docker rmi $registry/$dockerImageName:$BUILD_NUMBER"
-        //             sh "docker rmi $registry/$dockerImageName:latest"
-        //         }
-        //     }
-        // }
 
         stage('build Container Register Production') {
             when {
@@ -107,24 +66,6 @@ pipeline {
                 }
             }
         }
-
-        // stage('Deploy to Homolog Environment') {
-        //     when {
-        //         expression {
-        //             return env.GIT_BRANCH == 'homolog'
-        //         }
-        //     }
-
-        //     steps {
-        //         script {
-        //             withCredentials([string(credentialsId: "ARGOCD_SERVER", variable: 'ARGOCD_SERVER')]) {
-        //                 withCredentials([string(credentialsId: "argocd-homolog", variable: 'ARGOCD_AUTH_TOKEN')]) {
-        //                     sh "argocd --grpc-web app actions run vert-fileexplorer-front-hml restart --kind Deployment --all"
-        //                 }
-        //             }
-        //         }
-        //     }
-        // }
 
         stage('Deploy to Production Environment') {
             when {
@@ -154,28 +95,24 @@ pipeline {
         success {
             echo "Notify bitbucket success"
             script {
-                // bitbucketNotify('SUCCESSFUL', env.BRANCH_NAME, env.GIT_COMMIT)
             }
         }
 
         failure {
             echo "Notify bitbucket failure"
             script {
-                // bitbucketNotify('FAILED', env.BRANCH_NAME, env.GIT_COMMIT)
             }
         }
 
         aborted {
             echo "Notify bitbucket failure"
             script {
-                // bitbucketNotify('FAILED', env.BRANCH_NAME, env.GIT_COMMIT)
             }
         }
 
         unsuccessful {
             echo "Notify bitbucket failure"
             script {
-                // bitbucketNotify('FAILED', env.BRANCH_NAME, env.GIT_COMMIT)
             }
         }
 
