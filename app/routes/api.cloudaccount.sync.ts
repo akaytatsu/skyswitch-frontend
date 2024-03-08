@@ -8,12 +8,7 @@ export async function action({ request }: ActionFunctionArgs) {
     const id = data.get("id");
     const apiCloudAccountService = new CloudaccountService();
 
-    console.log("id", id);
-    console.log("id", Number(id));
-
-    const resp = await apiCloudAccountService.updateInstancesOfCloudAccount(Number(id), request);
-
-    console.log(resp);
+    await apiCloudAccountService.updateInstancesOfCloudAccount(Number(id), request);
 
     return {
         status: 200,

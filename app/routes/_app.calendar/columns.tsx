@@ -63,7 +63,6 @@ export function getColumns({
         <DataTableHeader title="Dias" column={column} isSort />
       ),
       cell: ({ row }) => {
-        console.log(row);
         return (
           <div className="w-[130px] ">
             {row.original.sunday == true && <p>Domingo</p>}

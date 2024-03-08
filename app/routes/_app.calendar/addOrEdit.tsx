@@ -71,8 +71,6 @@ export function AddOrEdit({ data, close }: Props) {
   }, [fetcher.data]);
 
   const onSubmit = async (values: z.infer<typeof CalendarModel.schema>) => {
-    console.log(values);
-
     fetcher.submit(values, {
       method: "POST",
       action: ".",
@@ -122,6 +120,7 @@ export function AddOrEdit({ data, close }: Props) {
                     <FormControl>
                       <SelectBasic
                         {...field}
+                        onChange={(e) => form.setValue("type_action", e)}
                         options={[
                           {
                             label: "Ligar",

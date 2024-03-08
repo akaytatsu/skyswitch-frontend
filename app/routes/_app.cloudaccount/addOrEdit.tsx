@@ -70,8 +70,6 @@ export function AddOrEdit({ data, close }: Props) {
   }, [fetcher.data]);
 
   const onSubmit = async (values: z.infer<typeof CloudaccountModel.schema>) => {
-    console.log(values);
-
     fetcher.submit(values, {
       method: "POST",
       action: ".",
