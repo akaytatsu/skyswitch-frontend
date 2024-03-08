@@ -46,7 +46,7 @@ pipeline {
         stage('build Container Register Production') {
             when {
                 expression {
-                    return env.GIT_BRANCH == 'master'
+                    return env.GIT_BRANCH == 'main'
                 }
             }
 
@@ -70,7 +70,7 @@ pipeline {
         stage('Deploy to Production Environment') {
             when {
                 expression {
-                    return env.GIT_BRANCH == 'master'
+                    return env.GIT_BRANCH == 'main'
                 }
             }
 
