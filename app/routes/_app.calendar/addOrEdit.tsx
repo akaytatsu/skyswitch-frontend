@@ -119,8 +119,7 @@ export function AddOrEdit({ data, close }: Props) {
                     <FormLabel>Tipo de Ação</FormLabel>
                     <FormControl>
                       <SelectBasic
-                        {...field}
-                        onChange={(e) => form.setValue("type_action", e)}
+                        field={field}
                         options={[
                           {
                             label: "Ligar",

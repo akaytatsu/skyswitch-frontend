@@ -14,6 +14,7 @@ import { useLoaderData, useNavigate, useSearchParams } from "@remix-run/react";
 import { useState } from "react";
 import clearEmptyParams from "~/components/clear-empty-params";
 import Unpermission from "~/components/unpermission";
+import { CalendarModel } from "~/models/calendar.model";
 import { InstancesModel } from "~/models/instances.model";
 import {
   PaginationStateModel,
@@ -21,6 +22,7 @@ import {
   TableModel,
 } from "~/models/table.model";
 import authenticated from "~/policies/authenticated";
+import { CalendarService } from "~/services/calendar.service";
 import { InstancesService } from "~/services/instances.service";
 import { AddOrEdit } from "./addOrEdit";
 import { getColumns } from "./columns";
@@ -33,13 +35,17 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const service = new InstancesService();
   const data = await service.list(request);
 
+  const calendarService = new CalendarService();
+  const calendarData: CalendarModel[] = (await calendarService.list(request))
+    .registers;
+
   const { user } = await authenticated(request);
 
-  return json({ data, user });
+  return json({ data, user, calendarData });
 }
 
 export default function AppIndex() {
-  const { data, user } = useLoaderData<typeof loader>();
+  const { data, user, calendarData } = useLoaderData<typeof loader>();
   const [searchParams] = useSearchParams();
 
   const registerData = data as TableModel<InstancesModel>;
@@ -118,7 +124,11 @@ export default function AppIndex() {
           </CardContent>
         </Card>
       </div>
-      <AddOrEdit data={stateData!} close={() => setState(undefined)} />
+      <AddOrEdit
+        data={stateData!}
+        calendarData={calendarData}
+        close={() => setState(undefined)}
+      />
     </>
   );
 }
@@ -128,12 +138,7 @@ export async function action({ request }: ActionFunctionArgs) {
 
   try {
     const service = new InstancesService();
-    await service.createOrEdit(
-      {
-        body,
-      },
-      request
-    );
+    await service.updateInstances(body, request);
 
     return json({
       error: "",

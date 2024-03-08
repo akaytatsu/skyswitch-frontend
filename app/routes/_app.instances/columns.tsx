@@ -5,12 +5,14 @@ import {
   type RT,
 } from "@vert-capital/design-system-ui";
 import { dateDisplay } from "~/common/format";
-import { UserModel } from "~/models/user.model";
+import { InstancesModel } from "~/models/instances.model";
 
 type Props = {
-  handleEdit: (data: UserModel) => void;
+  handleEdit: (data: InstancesModel) => void;
 };
-export function getColumns({ handleEdit }: Props): RT.ColumnDef<UserModel>[] {
+export function getColumns({
+  handleEdit,
+}: Props): RT.ColumnDef<InstancesModel>[] {
   return [
     {
       accessorKey: "id",
@@ -50,6 +52,20 @@ export function getColumns({ handleEdit }: Props): RT.ColumnDef<UserModel>[] {
         return (
           <div className="w-[250px]" title={instance_name}>
             {instance_name}
+          </div>
+        );
+      },
+    },
+    {
+      accessorKey: "cloud_account_nickname",
+      header: ({ column }) => (
+        <DataTableHeader title="Cloud Account" column={column} isSort />
+      ),
+      cell: ({ row }) => {
+        const obj: string = row.original.cloud_account.nickname;
+        return (
+          <div className="w-[250px]" title={obj}>
+            {obj}
           </div>
         );
       },
@@ -162,5 +178,5 @@ export function getColumns({ handleEdit }: Props): RT.ColumnDef<UserModel>[] {
         );
       },
     },
-  ] as RT.ColumnDef<UserModel>[];
+  ] as RT.ColumnDef<InstancesModel>[];
 }

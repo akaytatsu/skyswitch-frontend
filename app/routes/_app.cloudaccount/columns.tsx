@@ -24,7 +24,7 @@ export function getColumns({ handleEdit }: Props): RT.ColumnDef<UserModel>[] {
       cell: ({ row }) => {
         const id: number = row.getValue("id");
         return (
-          <div title={id.toString()} className="w-[200px] truncate">
+          <div title={id.toString()} className="w-[200px]">
             {id}
           </div>
         );
@@ -38,7 +38,7 @@ export function getColumns({ handleEdit }: Props): RT.ColumnDef<UserModel>[] {
       cell: ({ row }) => {
         const cloud_provider: string = row.getValue("cloud_provider");
         return (
-          <div className="w-[130px] truncate" title={cloud_provider}>
+          <div className="w-[130px]" title={cloud_provider}>
             {cloud_provider}
           </div>
         );
@@ -52,7 +52,7 @@ export function getColumns({ handleEdit }: Props): RT.ColumnDef<UserModel>[] {
       cell: ({ row }) => {
         const nickname: string = row.getValue("nickname");
         return (
-          <div className="w-[130px] truncate" title={nickname}>
+          <div className="w-[130px]" title={nickname}>
             {nickname}
           </div>
         );
@@ -80,7 +80,7 @@ export function getColumns({ handleEdit }: Props): RT.ColumnDef<UserModel>[] {
       cell: ({ row }) => {
         const active: string = row.getValue("active") ? "Sim" : "Não";
         return (
-          <div className="w-[130px] truncate" title={active}>
+          <div className="w-[130px]" title={active}>
             {active}
           </div>
         );
@@ -99,7 +99,7 @@ export function getColumns({ handleEdit }: Props): RT.ColumnDef<UserModel>[] {
               year: "numeric",
             })
           : "";
-        return <div className="w-[100px] truncate">{date}</div>;
+        return <div className="w-[100px]">{date}</div>;
       },
     },
     {
@@ -115,7 +115,7 @@ export function getColumns({ handleEdit }: Props): RT.ColumnDef<UserModel>[] {
               year: "numeric",
             })
           : "";
-        return <div className="w-[100px] truncate">{date}</div>;
+        return <div className="w-[100px]">{date}</div>;
       },
     },
     {

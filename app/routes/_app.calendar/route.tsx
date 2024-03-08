@@ -105,7 +105,6 @@ export default function AppIndex() {
               initialHeight="19.2rem"
               columns={getColumns({
                 handleEdit: (data) => {
-                  console.log(data);
                   setState(new CalendarModel(data));
                 },
               })}

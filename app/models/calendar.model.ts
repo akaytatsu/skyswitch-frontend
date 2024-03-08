@@ -83,8 +83,8 @@ export class CalendarModel {
 
   public static schema = z.object({
     id: z.number().optional(),
-    name: z.string().min(3).max(90),
-    type_action: z.string(),
+    name: z.string().min(3).max(90).optional(),
+    type_action: z.string().optional(),
     active: z.boolean().optional(),
     valid_holiday: z.boolean().optional(),
     valid_weekend: z.boolean().optional(),
@@ -107,6 +107,34 @@ export class CalendarModel {
   static validate(values: any) {
     const data = new CalendarModel(values);
     CalendarModel.schema.parse(data);
+    return data;
+  }
+}
+
+export class CalendarSimpleModel {
+  id: number;
+
+  constructor(data: any) {
+    this.id = data.id;
+  }
+
+  toJson() {
+    let aux = {
+      id: this.id,
+    };
+
+    aux = removeAllUndefinedNodes(aux);
+
+    return aux;
+  }
+
+  public static schema = z.object({
+    id: z.number().optional(),
+  });
+
+  static validate(values: any) {
+    const data = new CalendarSimpleModel(values);
+    CalendarSimpleModel.schema.parse(data);
     return data;
   }
 }

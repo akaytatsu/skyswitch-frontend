@@ -1,9 +1,13 @@
 import { z } from "zod";
+import { CalendarModel } from "./calendar.model";
+import { CloudaccountModel } from "./cloudaccount.model";
 import { removeAllUndefinedNodes } from "./utils";
 
 export class InstancesModel {
   id: number;
   cloud_account_id: number;
+  cloud_account : CloudaccountModel;
+  calendars :  CalendarModel[];
   instance_id: string;
   instance_type: string;
   instance_name: string;
@@ -16,6 +20,8 @@ export class InstancesModel {
   constructor(data: any) {
     this.id = data.id;
     this.cloud_account_id = data.cloud_account_id;
+    this.cloud_account = data.cloud_account;
+    this.calendars = data.calendars;
     this.instance_id = data.instance_id;
     this.instance_type = data.instance_type;
     this.instance_name = data.instance_name;
@@ -30,6 +36,8 @@ export class InstancesModel {
     let aux = {
       id: this.id,
       cloud_account_id: this.cloud_account_id,
+      cloud_account: this.cloud_account,
+      calendars: this.calendars,
       instance_id: this.instance_id,
       instance_type: this.instance_type,
       instance_name: this.instance_name,
@@ -48,6 +56,8 @@ export class InstancesModel {
   public static schema = z.object({
     id: z.number().optional(),
     cloud_account_id: z.number().optional(),
+    cloud_account: CloudaccountModel.schema.optional(),
+    calendars: z.array(CalendarModel.schema).optional(),
     instance_id: z.string().optional(),
     instance_type: z.string().optional(),
     instance_name: z.string().optional(),

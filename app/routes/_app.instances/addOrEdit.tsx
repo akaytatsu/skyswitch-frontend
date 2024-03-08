@@ -1,7 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useFetcher, useRevalidator } from "@remix-run/react";
-import { useEffect } from "react";
-import { useForm } from "react-hook-form";
 import {
   Button,
   CheckBoxBasic,
@@ -12,6 +10,7 @@ import {
   FormLabel,
   Icons,
   Input,
+  SelectAdvanced,
   Sheet,
   SheetContent,
   SheetDescription,
@@ -20,17 +19,21 @@ import {
   SheetTitle,
   useToast,
 } from "@vert-capital/design-system-ui";
+import { useEffect } from "react";
+import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { handleError } from "~/common/handle-error";
+import { CalendarModel } from "~/models/calendar.model";
 import { InstancesModel } from "~/models/instances.model";
 import { action } from "./route";
 
 type Props = {
   data: InstancesModel;
+  calendarData: CalendarModel[];
   close: () => void;
 };
 
-export function AddOrEdit({ data, close }: Props) {
+export function AddOrEdit({ data, calendarData, close }: Props) {
   const isOpen = !!data;
   const isEdit = data?.id ? true : false;
   const fetcher = useFetcher<typeof action>();
@@ -125,6 +128,32 @@ export function AddOrEdit({ data, close }: Props) {
                           !e
                             ? form.setValue("active", false)
                             : form.setValue("active", true)
+                        }
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="calendars"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Calendários</FormLabel>
+                    <FormControl>
+                      <SelectAdvanced
+                        placeholder="Selecione uma opção"
+                        selected={field.value.map((item) => item.id)}
+                        options={calendarData.map((item) => ({
+                          label: item.name,
+                          value: item.id,
+                        }))}
+                        multiple
+                        onChangeValue={(value) =>
+                          form.setValue(
+                            "calendars",
+                            value.map((item) => new CalendarModel({ id: item }))
+                          )
                         }
                       />
                     </FormControl>

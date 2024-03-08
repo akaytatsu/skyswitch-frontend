@@ -25,7 +25,7 @@ export function getColumns({
         const storageId = row.original.id;
         return (
           <Link to={`/files/${storageId}`}>
-            <div title={name} className="w-[200px] truncate">
+            <div title={name} className="w-[200px]">
               {name}
             </div>
           </Link>
@@ -40,7 +40,7 @@ export function getColumns({
       cell: ({ row }) => {
         const code: string = row.getValue("code");
         return (
-          <div className="w-[130px] truncate" title={code}>
+          <div className="w-[130px]" title={code}>
             {code}
           </div>
         );
@@ -59,7 +59,7 @@ export function getColumns({
               year: "numeric",
             })
           : "";
-        return <div className="w-[100px] truncate">{date}</div>;
+        return <div className="w-[100px]">{date}</div>;
       },
     },
     {
@@ -75,7 +75,7 @@ export function getColumns({
               year: "numeric",
             })
           : "";
-        return <div className="w-[100px] truncate">{date}</div>;
+        return <div className="w-[100px]">{date}</div>;
       },
     },
     {
