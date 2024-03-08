@@ -94,26 +94,18 @@ pipeline {
 
         success {
             echo "Notify bitbucket success"
-            script {
-            }
         }
 
         failure {
             echo "Notify bitbucket failure"
-            script {
-            }
         }
 
         aborted {
             echo "Notify bitbucket failure"
-            script {
-            }
         }
 
         unsuccessful {
             echo "Notify bitbucket failure"
-            script {
-            }
         }
 
     }
