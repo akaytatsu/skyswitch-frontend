@@ -234,6 +234,27 @@ export function Filter() {
               />
               <FormField
                 control={form.control}
+                name="exclude_blank_name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <CheckBoxBasic
+                        {...field}
+                        id="exclude_blank_name"
+                        label="Exclui nomes vazios"
+                        checked={field.value}
+                        onCheckedChange={(e: boolean) =>
+                          !e
+                            ? form.setValue("exclude_blank_name", false)
+                            : form.setValue("exclude_blank_name", true)
+                        }
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
                 name="created_at"
                 render={() => (
                   <FormItem>
