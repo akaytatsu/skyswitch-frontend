@@ -131,7 +131,9 @@ export default function Index() {
         <NavbarApp
           isMobile={isMobile}
           setCollapsed={setCollapsed}
-          // user={new UserModel(user).toJson()}
+          hideApps={true}
+          hideNotifications={true}
+          hideUser={true}
           logout={() => {
             fetcher.submit("", {
               method: "POST",
