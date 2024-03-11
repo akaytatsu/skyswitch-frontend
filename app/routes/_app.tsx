@@ -122,6 +122,13 @@ export default function Index() {
                       onClick: () => navigate(routes.jobs),
                     },
                     {
+                      title: "Logs",
+                      variant: "default" as const,
+                      icon: Icons.TextSelectIcon,
+                      active: pathname === routes.log,
+                      onClick: () => navigate(routes.log),
+                    },
+                    {
                       title: "Users",
                       variant: "default" as const,
                       icon: Icons.Users2Icon,

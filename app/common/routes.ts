@@ -6,4 +6,5 @@ export default {
   cloud_accounts: '/cloudaccount',
   calendar: '/calendar',
   jobs: '/job',
+  log: '/log',
 };
