@@ -54,7 +54,7 @@ export function getColumns(): RT.ColumnDef<JobModel>[] {
       cell: ({ row }) => {
         const obj: string = row.getValue("count");
         return (
-          <div className="w-[130px]" title={obj}>
+          <div className="w-[30px]" title={obj}>
             {obj}
           </div>
         );
