@@ -38,9 +38,9 @@ export class UsersService {
     const payload = new UsersModel(body);
 
     if (payload.id && payload.id > 0) {
-      await api.put(`users/${payload.id}`, {body: payload.toJson(), request});
+      await api.put(`user/`, {body: payload.toJson(), request});
     } else {
-      await api.post('users', {body: payload.toJson(), request});
+      await api.post('user', {body: payload.toJson(), request});
     }
   }
 

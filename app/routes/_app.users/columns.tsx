@@ -20,7 +20,7 @@ export function getColumns({ handleEdit }: Props): RT.ColumnDef<UserModel>[] {
       cell: ({ row }) => {
         const id: number = row.getValue("id");
         return (
-          <div title={id.toString()} className="w-[200px]">
+          <div title={id.toString()} className="w-[30px]">
             {id}
           </div>
         );
@@ -41,6 +41,20 @@ export function getColumns({ handleEdit }: Props): RT.ColumnDef<UserModel>[] {
       },
     },
     {
+      accessorKey: "email",
+      header: ({ column }) => (
+        <DataTableHeader title="Email" column={column} isSort />
+      ),
+      cell: ({ row }) => {
+        const email: string = row.getValue("email");
+        return (
+          <div className="w-[130px] " title={email}>
+            {email}
+          </div>
+        );
+      },
+    },
+    {
       accessorKey: "active",
       header: ({ column }) => (
         <DataTableHeader title="Ativo?" column={column} isSort />
@@ -50,6 +64,20 @@ export function getColumns({ handleEdit }: Props): RT.ColumnDef<UserModel>[] {
         return (
           <div className="w-[130px]" title={active}>
             {active}
+          </div>
+        );
+      },
+    },
+    {
+      accessorKey: "is_admin",
+      header: ({ column }) => (
+        <DataTableHeader title="Admin?" column={column} isSort />
+      ),
+      cell: ({ row }) => {
+        const is_admin: string = row.getValue("is_admin") ? "Sim" : "Não";
+        return (
+          <div className="w-[130px]" title={is_admin}>
+            {is_admin}
           </div>
         );
       },

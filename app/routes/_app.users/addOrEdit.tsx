@@ -110,6 +110,37 @@ export function AddOrEdit({ data, close }: Props) {
               />
               <FormField
                 control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Email</FormLabel>
+                    <FormControl>
+                      <Input
+                        {...field}
+                        id="email"
+                        disabled={isEdit}
+                        readOnly={isEdit}
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+              {!isEdit && (
+                <FormField
+                  control={form.control}
+                  name="password"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Password</FormLabel>
+                      <FormControl>
+                        <Input {...field} id="password" type="password" />
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
+              )}
+              <FormField
+                control={form.control}
                 name="active"
                 render={({ field }) => (
                   <FormItem>
@@ -123,6 +154,27 @@ export function AddOrEdit({ data, close }: Props) {
                           !e
                             ? form.setValue("active", false)
                             : form.setValue("active", true)
+                        }
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="is_admin"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <CheckBoxBasic
+                        {...field}
+                        id="is_admin"
+                        label="Admin?"
+                        checked={field.value}
+                        onCheckedChange={(e: boolean) =>
+                          !e
+                            ? form.setValue("is_admin", false)
+                            : form.setValue("is_admin", true)
                         }
                       />
                     </FormControl>
