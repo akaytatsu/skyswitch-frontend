@@ -115,6 +115,13 @@ export default function Index() {
                       onClick: () => navigate(routes.instances),
                     },
                     {
+                      title: "Jobs",
+                      variant: "default" as const,
+                      icon: Icons.WorkflowIcon,
+                      active: pathname === routes.jobs,
+                      onClick: () => navigate(routes.jobs),
+                    },
+                    {
                       title: "Users",
                       variant: "default" as const,
                       icon: Icons.Users2Icon,

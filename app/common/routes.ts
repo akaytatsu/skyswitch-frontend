@@ -5,4 +5,5 @@ export default {
   instances: '/instances',
   cloud_accounts: '/cloudaccount',
   calendar: '/calendar',
+  jobs: '/job',
 };
