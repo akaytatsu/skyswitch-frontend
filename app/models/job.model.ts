@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { CalendarModel } from "./calendar.model";
 import { removeAllUndefinedNodes } from "./utils";
 
 export class JobModel {
@@ -9,6 +10,7 @@ export class JobModel {
   last_run: string;
   next_run: string;
   scheduled_time: string;
+  calendar: CalendarModel;
 
 
   constructor(data: any) {
@@ -19,6 +21,7 @@ export class JobModel {
     this.last_run = data.last_run;
     this.next_run = data.next_run;
     this.scheduled_time = data.scheduled_time;
+    this.calendar = new CalendarModel(data.calendar);
   }
 
   toJson() {
@@ -30,6 +33,7 @@ export class JobModel {
       last_run: this.last_run,
       next_run: this.next_run,
       scheduled_time: this.scheduled_time,
+      calendar: this.calendar.toJson(),
     };
 
     aux = removeAllUndefinedNodes(aux);

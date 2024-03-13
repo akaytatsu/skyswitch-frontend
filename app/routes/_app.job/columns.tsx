@@ -19,6 +19,20 @@ export function getColumns(): RT.ColumnDef<JobModel>[] {
       },
     },
     {
+      accessorKey: "calendar",
+      header: ({ column }) => (
+        <DataTableHeader title="Calendário" column={column} isSort />
+      ),
+      cell: ({ row }) => {
+        const calendar: string = row.getValue("calendar").name;
+        return (
+          <div className="w-[180px] " title={calendar}>
+            {calendar}
+          </div>
+        );
+      },
+    },
+    {
       accessorKey: "is_running",
       header: ({ column }) => (
         <DataTableHeader title="Executando?" column={column} isSort />
