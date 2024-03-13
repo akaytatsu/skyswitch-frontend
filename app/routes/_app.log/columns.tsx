@@ -1,6 +1,6 @@
 import { DataTableHeader, type RT } from "@vert-capital/design-system-ui";
-import { dateDisplay } from "~/common/format";
 import { LogModel } from "~/models/log.model";
+import { convertData } from "~/models/utils";
 
 export function getColumns(): RT.ColumnDef<LogModel>[] {
   return [
@@ -94,14 +94,8 @@ export function getColumns(): RT.ColumnDef<LogModel>[] {
         <DataTableHeader title="Criado em" column={column} isSort />
       ),
       cell: ({ row }) => {
-        const date = row.getValue("created_at")
-          ? dateDisplay(row.getValue("created_at"), {
-              day: "2-digit",
-              month: "2-digit",
-              year: "numeric",
-            })
-          : "";
-        return <div className="w-[100px] truncate">{date}</div>;
+        const date = convertData(row.getValue("created_at"));
+        return <div className="w-[100px]">{date}</div>;
       },
     },
   ] as RT.ColumnDef<LogModel>[];
