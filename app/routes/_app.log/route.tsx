@@ -40,8 +40,8 @@ export default function AppIndex() {
 
   const navigate = useNavigate();
 
-  const orderBy = searchParams.get("order_by") || "";
-  const sortOrder = searchParams.get("sort_order") || "";
+  const orderBy = searchParams.get("order_by") || "created_at";
+  const sortOrder = searchParams.get("sort_order") || "desc";
   const page = searchParams.get("page") || "0";
   const pageSize = searchParams.get("page_size") || "10";
 
