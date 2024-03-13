@@ -75,6 +75,16 @@ export function getColumns(): RT.ColumnDef<LogModel>[] {
       },
     },
     {
+      accessorKey: "created_at",
+      header: ({ column }) => (
+        <DataTableHeader title="Criado em" column={column} isSort />
+      ),
+      cell: ({ row }) => {
+        const date = convertData(row.getValue("created_at"));
+        return <div className="w-[100px]">{date}</div>;
+      },
+    },
+    {
       accessorKey: "error",
       header: ({ column }) => (
         <DataTableHeader title="Erro" column={column} isSort />
@@ -86,16 +96,6 @@ export function getColumns(): RT.ColumnDef<LogModel>[] {
             {error}
           </div>
         );
-      },
-    },
-    {
-      accessorKey: "created_at",
-      header: ({ column }) => (
-        <DataTableHeader title="Criado em" column={column} isSort />
-      ),
-      cell: ({ row }) => {
-        const date = convertData(row.getValue("created_at"));
-        return <div className="w-[100px]">{date}</div>;
       },
     },
   ] as RT.ColumnDef<LogModel>[];
