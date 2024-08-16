@@ -1,4 +1,6 @@
-import { createCookieSessionStorage } from '@remix-run/node';
+import { createCookieSessionStorage } from "@remix-run/node";
+
+const isProduction = process.env.NODE_ENV === "production";
 
 type SessionData = {
   token: string;
@@ -12,12 +14,12 @@ type SessionFlashData = {
 const { getSession, commitSession, destroySession } =
   createCookieSessionStorage<SessionData, SessionFlashData>({
     cookie: {
-      name: 'skyswitch-session',
-      httpOnly: true,
-      path: '/',
-      sameSite: 'lax',
+      name: "skyswitch-session",
+      httpOnly: false,
+      path: "/",
+      sameSite: "lax",
       secrets: [process.env.SESSION_SECRET!],
-      secure: true,
+      secure: isProduction,
       maxAge: 60 * 60 * 24 * 365, // 1 ano em segundos
     },
   });

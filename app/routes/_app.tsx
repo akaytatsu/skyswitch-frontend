@@ -115,6 +115,13 @@ export default function Index() {
                       onClick: () => navigate(routes.instances),
                     },
                     {
+                      title: "DB Instances",
+                      variant: "default" as const,
+                      icon: Icons.DatabaseIcon,
+                      active: pathname === routes.dbinstances,
+                      onClick: () => navigate(routes.dbinstances),
+                    },
+                    {
                       title: "Jobs",
                       variant: "default" as const,
                       icon: Icons.WorkflowIcon,
