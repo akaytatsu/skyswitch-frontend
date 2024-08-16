@@ -41,8 +41,6 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const calendarData: CalendarModel[] = (await calendarService.list(request))
     .registers;
 
-  console.log("calendarData", calendarData);
-
   const { user } = await authenticated(request);
 
   return json({ data, user, calendarData });
