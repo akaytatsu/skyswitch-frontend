@@ -122,6 +122,13 @@ export default function Index() {
                       onClick: () => navigate(routes.dbinstances),
                     },
                     {
+                      title: "AutoScalling Groups",
+                      variant: "default" as const,
+                      icon: Icons.SquareStackIcon,
+                      active: pathname === routes.autoscalling_groups,
+                      onClick: () => navigate(routes.autoscalling_groups),
+                    },
+                    {
                       title: "Jobs",
                       variant: "default" as const,
                       icon: Icons.WorkflowIcon,
