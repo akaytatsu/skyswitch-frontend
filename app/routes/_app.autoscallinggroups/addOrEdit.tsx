@@ -22,12 +22,12 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { handleError } from "~/common/handle-error";
+import { AutoScallingGroupsModel } from "~/models/autoscallinggroup.model";
 import { CalendarModel } from "~/models/calendar.model";
-import { DbInstancesModel } from "~/models/dbinstances.model";
 import { action } from "./route";
 
 type Props = {
-  data: DbInstancesModel;
+  data: AutoScallingGroupsModel;
   calendarData: CalendarModel[];
   close: () => void;
 };
@@ -38,8 +38,8 @@ export function AddOrEdit({ data, calendarData, close }: Props) {
   const fetcher = useFetcher<typeof action>();
   const { revalidate } = useRevalidator();
 
-  const form = useForm<DbInstancesModel>({
-    resolver: zodResolver(DbInstancesModel.schema),
+  const form = useForm<AutoScallingGroupsModel>({
+    resolver: zodResolver(AutoScallingGroupsModel.schema),
   });
 
   useEffect(() => {
@@ -69,7 +69,9 @@ export function AddOrEdit({ data, calendarData, close }: Props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fetcher.data]);
 
-  const onSubmit = async (values: z.infer<typeof DbInstancesModel.schema>) => {
+  const onSubmit = async (
+    values: z.infer<typeof AutoScallingGroupsModel.schema>
+  ) => {
     fetcher.submit(values, {
       method: "POST",
       action: ".",

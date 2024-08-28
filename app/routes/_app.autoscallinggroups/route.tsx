@@ -5,7 +5,11 @@ import {
   DataTable,
 } from "@vert-capital/design-system-ui";
 
-import { json, type LoaderFunctionArgs } from "@remix-run/node";
+import {
+  ActionFunctionArgs,
+  json,
+  type LoaderFunctionArgs,
+} from "@remix-run/node";
 import { useLoaderData, useNavigate, useSearchParams } from "@remix-run/react";
 import { useState } from "react";
 import clearEmptyParams from "~/components/clear-empty-params";
@@ -127,19 +131,19 @@ export default function AppIndex() {
   );
 }
 
-// export async function action({ request }: ActionFunctionArgs) {
-//   const body = await request.json();
+export async function action({ request }: ActionFunctionArgs) {
+  const body = await request.json();
 
-//   try {
-//     const service = new AutoScallingGroupsService();
-//     await service.updateInstances(body, request);
+  try {
+    const service = new AutoScallingGroupsService();
+    await service.updateInstances(body, request);
 
-//     return json({
-//       error: "",
-//       success: true,
-//       lastSubmission: body,
-//     });
-//   } catch (error) {
-//     return json({ error, success: false, lastSubmission: body });
-//   }
-// }
+    return json({
+      error: "",
+      success: true,
+      lastSubmission: body,
+    });
+  } catch (error) {
+    return json({ error, success: false, lastSubmission: body });
+  }
+}

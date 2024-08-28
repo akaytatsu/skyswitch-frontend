@@ -37,7 +37,7 @@ async function request(method: string, url: string, options?: Props) {
     headers["Authorization"] = `${session.get("token")}`;
   }
 
-  // console.log('request', _url, method, headers, options?.body)
+  // console.log("request", _url, method, headers, options?.body);
 
   const response = await fetch(_url, {
     method: method,
