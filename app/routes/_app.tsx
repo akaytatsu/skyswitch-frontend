@@ -24,7 +24,7 @@ import authenticated from "~/policies/authenticated";
 
 export const meta: MetaFunction<typeof loader> = () => [
   {
-    title: `SKYSWITCH`,
+    title: `CLOUDSWITCH`,
   },
 ];
 
